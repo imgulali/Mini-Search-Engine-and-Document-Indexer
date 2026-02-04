@@ -13,3 +13,19 @@ Minie/
 │   ├── ...
 └── includes/            # Header files
 ```
+
+## Build Instructions (using g++)
+
+Since you are using `g++`, you can compile the project directly from the terminal without needing CMake.
+
+1. Open your terminal in the project root folder.
+
+2. Run the following command:
+   ```bash
+   g++ -std=c++17 -I includes src/*.cpp -o minie
+   ```
+
+3. Run the executable:
+     ```powershell
+     .\minie.exe
+     ```

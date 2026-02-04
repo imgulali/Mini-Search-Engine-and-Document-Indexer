@@ -266,63 +266,10 @@ void handleShowAll(SearchEngine& engine) {
     pause();
 }
 
-int main(int argc, char* argv[]) {
+int main() {
     system("color"); 
 
     SearchEngine engine;
-
-    if (argc > 1) {
-        string command = argv[1];
-        if (command == "add") {
-            for (int i = 2; i < argc; ++i) {
-                string arg = argv[i];
-                if (fs::is_directory(arg)) {
-                    cout << "Adding all files from directory: " << arg << "\n";
-                    for (const auto& entry : fs::directory_iterator(arg)) {
-                        if (entry.is_regular_file()) {
-                            engine.addDocument(entry.path().string());
-                        }
-                    }
-                } else {
-                    engine.addDocument(arg);
-                }
-            }
-        } else if (command == "remove") {
-            for (int i = 2; i < argc; ++i) {
-                string arg = argv[i];
-                if (fs::is_directory(arg)) {
-                     cout << "Removing all files found in directory: " << arg << "\n";
-                     for (const auto& entry : fs::directory_iterator(arg)) {
-                        if (entry.is_regular_file()) {
-                            engine.removeDocument(entry.path().filename().string());
-                        }
-                    }
-                } else {
-                    engine.removeDocument(arg);
-                }
-            }
-        } else if (command == "list") {
-             engine.sync();
-             auto docs = engine.getDocumentManager().getAllDocuments();
-             for (const auto& doc : docs) cout << doc.id << ": " << doc.filename << "\n";
-        } else if (command == "search") {
-             engine.sync();
-             string query;
-             for (int i = 2; i < argc; ++i) {
-                 query += argv[i];
-                 if (i < argc - 1) query += " ";
-             }
-             auto results = engine.search(query);
-             for (const auto& res : results) {
-                 cout << "File: " << res.doc.filename << " (Score: " << res.score << ")\n";
-                 if (!res.snippet.empty()) {
-                     cout << "Snippet: \"" << highlightTerms(res.snippet, query) << "\"\n";
-                 }
-                 cout << "\n";
-             }
-        }
-        return 0;
-    }
 
     int choice;
     while (true) {
